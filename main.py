@@ -1,12 +1,11 @@
 import math
-import os
 import datetime
 import requests
 from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
 
-bot = Bot(token='6166321274:AAFuBs5O1in2AtqpxyT0eb_Y8gjQLdEBHBo')
+bot = Bot(token='YOUR TOKEN')
 dp = Dispatcher(bot)
 
 
@@ -19,14 +18,13 @@ async def start_command(message: types.Message):
 async def get_weather(message: types.Message):
     try:
         response = requests.get(
-                f"http://api.openweathermap.org/data/2.5/weather?q={message.text}&lang=ru&units=metric&appid=ec4e04246e27ebd7d1e13a3c437c0136")
+            f"http://api.openweathermap.org/data/2.5/weather?q={message.text}&lang=ru&units=metric&appid=ec4e04246e27ebd7d1e13a3c437c0136")
         data = response.json()
         city = data["name"]
         cur_temp = data["main"]["temp"]
         humidity = data["main"]["humidity"]
         pressure = data["main"]["pressure"]
         wind = data["wind"]["speed"]
-
 
         # получаем время рассвета и преобразуем его в читабельный формат
         sunrise_timestamp = datetime.datetime.fromtimestamp(data["sys"]["sunrise"])
